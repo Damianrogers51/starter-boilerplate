@@ -19,10 +19,11 @@ export const tagsEnum = pgEnum("tags", [
 export const brand = pgTable("brand", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 128 }).notNull(),
+  value: varchar("value", { length: 128 }).notNull(),
   instagram: varchar("instagram", { length: 128 }).notNull(),
   website: varchar("website", { length: 256 }).notNull(),
-  thumbnail: varchar("thumbnail", { length: 256 }).notNull(),
-  images: varchar("images", { length: 256 }).array().notNull(),
+  thumbnail: varchar("thumbnail", { length: 1024 }).notNull(),
+  images: varchar("images", { length: 1024 }).array().notNull(),
 })
 export type InsertBrand = typeof brand.$inferInsert
 export type SelectBrand = typeof brand.$inferSelect
@@ -38,7 +39,7 @@ export const item = pgTable("item", {
   brand: integer("brand_id").notNull().references(() => brand.id).unique().notNull(),
   name: varchar("name", { length: 128 }).notNull(),
   link: varchar("link", { length: 128 }).notNull(),
-  images: varchar("images", { length: 256 }).array().notNull(),
+  images: varchar("images", { length: 1024 }).array().notNull(),
   tags: tagsEnum("tags").array().notNull(),
 })
 export type InsertItem = typeof item.$inferInsert

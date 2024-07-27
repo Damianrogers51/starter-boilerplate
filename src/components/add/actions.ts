@@ -57,6 +57,7 @@ export async function AddBrandAction(data: FormData) {
 
   const insert: InsertBrand = {
     name: data.get("name")! as string,
+    value: data.get("value")! as string,
     instagram: data.get("instagram")! as string,
     website: data.get("website")! as string,
     thumbnail: thumbnail,
