@@ -1,9 +1,9 @@
 import { 
-  pgTable, 
+  pgTable,
+  pgEnum, 
   serial, 
   varchar, 
   integer,
-  pgEnum
 } from "drizzle-orm/pg-core";
 
 /** Enum of potential item tags. */
@@ -24,6 +24,8 @@ export const brand = pgTable("brand", {
   thumbnail: varchar("thumbnail", { length: 256 }).notNull(),
   images: varchar("images", { length: 256 }).array().notNull(),
 })
+export type InsertBrand = typeof brand.$inferInsert
+export type SelectBrand = typeof brand.$inferSelect
 
 
 /** 
@@ -34,7 +36,10 @@ export const brand = pgTable("brand", {
 export const item = pgTable("item", {
   id: serial("id").primaryKey(),
   brand: integer("brand_id").notNull().references(() => brand.id).unique().notNull(),
+  name: varchar("name", { length: 128 }).notNull(),
   link: varchar("link", { length: 128 }).notNull(),
   images: varchar("images", { length: 256 }).array().notNull(),
   tags: tagsEnum("tags").array().notNull(),
 })
+export type InsertItem = typeof item.$inferInsert
+export type SelectItem = typeof item.$inferSelect
