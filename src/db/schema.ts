@@ -21,6 +21,7 @@ export const brand = pgTable("brand", {
   name: varchar("name", { length: 128 }).notNull(),
   value: varchar("value", { length: 128 }).notNull(),
   instagram: varchar("instagram", { length: 128 }).notNull(),
+  followers: integer("followers").notNull(),
   website: varchar("website", { length: 256 }).notNull(),
   thumbnail: varchar("thumbnail", { length: 1024 }).notNull(),
   images: varchar("images", { length: 1024 }).array().notNull(),
