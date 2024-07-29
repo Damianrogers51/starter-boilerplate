@@ -4,14 +4,15 @@ import {
   serial, 
   varchar, 
   integer,
+  boolean,
 } from "drizzle-orm/pg-core";
 
 /** Enum of potential item tags. */
 
 export const tagsEnum = pgEnum("tags", [
-  "Baggy Jeans",
-  "Essentials",
-  "Cropped Tees",
+  "baggy_denim",
+  "basics",
+  "boxy_hoodies",
 ]);
 
 /** Contains information pertaining to brands. */
@@ -25,6 +26,7 @@ export const brand = pgTable("brand", {
   website: varchar("website", { length: 256 }).notNull(),
   thumbnail: varchar("thumbnail", { length: 1024 }).notNull(),
   images: varchar("images", { length: 1024 }).array().notNull(),
+  display: boolean("display").default(true).notNull()
 })
 export type InsertBrand = typeof brand.$inferInsert
 export type SelectBrand = typeof brand.$inferSelect
@@ -39,6 +41,7 @@ export const item = pgTable("item", {
   id: serial("id").primaryKey(),
   brand: integer("brand_id").notNull().references(() => brand.id).unique().notNull(),
   name: varchar("name", { length: 128 }).notNull(),
+  price: integer("price").notNull(),
   link: varchar("link", { length: 128 }).notNull(),
   images: varchar("images", { length: 1024 }).array().notNull(),
   tags: tagsEnum("tags").array().notNull(),
