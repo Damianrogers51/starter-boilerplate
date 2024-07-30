@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
+import TopBar from "@/components/layout/Topbar";
+
 const sans = DM_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={sans.className}>{children}</body>
+      <body className={sans.className}>
+        <TopBar />
+        
+        {children}
+      </body>
     </html>
   );
 }
